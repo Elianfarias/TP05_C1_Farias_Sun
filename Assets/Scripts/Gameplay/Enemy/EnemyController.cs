@@ -14,7 +14,7 @@ namespace Clase08
 
         private void HealthSystem_onDie()
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 }

@@ -46,7 +46,6 @@ public class EnemySpawner : MonoBehaviour
                 continue;
 
             EnemyMovement enemyMovement = enemySelected.GetComponent<EnemyMovement>();
-            enemyMovement.speedIncremental = speed;
             enemySelected.transform.position = transform.position;
             enemySelected.SetActive(true);
             countSpawnersActivated++;

@@ -9,7 +9,6 @@ public class HUDManager : MonoBehaviour
 
     [Header("PlayersHUD")]
     [SerializeField] private PlayerDataSO playerSettings;
-    [SerializeField] private TMP_Text textPlayerName;
     [Header("PlayerLoseHUD")]
     public GameObject panelPlayerLose;
     [SerializeField] private TMP_Text scoreText;
@@ -22,11 +21,6 @@ public class HUDManager : MonoBehaviour
         Instance = this;
         btnBackToMenu.onClick.AddListener(BackToMenu);
         btnReset.onClick.AddListener(ResetGame);
-    }
-
-    private void Update()
-    {
-        textPlayerName.text = playerSettings.playerName;
     }
 
     private void OnDestroy()

@@ -1,57 +1,73 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class HealthSystem : MonoBehaviour
 {
+    private static readonly int State = Animator.StringToHash("State");
     public event Action<int, int> onLifeUpdated;
     public event Action onDie;
 
-    private int life = 100;
     [SerializeField] private int maxLife = 100;
+    [SerializeField] private Animator animator;
+    [SerializeField] private Rigidbody2D rb;
 
-    private void Start ()
+    private int life = 100;
+    private PlayerAnimatorEnum playerAnimatorEnum;
+    private bool isTakingDamage;
+
+    private void Start()
     {
         life = maxLife;
         onLifeUpdated?.Invoke(life, maxLife);
     }
 
-    public void DoDamage (int damage)
+    public void DoDamage(int damage)
     {
-        if (damage < 0)
-        {
-            Debug.Log("Se cura en la funcion de daño");
+        if (damage < 0 || isTakingDamage)
             return;
-        }
 
         life -= damage;
 
         if (life < 0)
         {
-            life = 0;
-            onDie?.Invoke();
+            StartCoroutine(nameof(Die));
         }
         else
         {
+            StartCoroutine(nameof(TakeDamage));
             onLifeUpdated?.Invoke(life, maxLife);
         }
 
-        Debug.Log("DoDamage", gameObject);
     }
 
-    public void Heal (int plus)
+    public void Heal(int plus)
     {
         if (plus < 0)
-        {
-            Debug.Log("Se daña en la funcion de cura");
             return;
-        }
 
         life += plus;
 
         if (life > maxLife)
             life = maxLife;
 
-        Debug.Log("Heal");
         onLifeUpdated?.Invoke(life, maxLife);
+    }
+
+    private IEnumerator TakeDamage()
+    {
+        isTakingDamage = true;
+        animator.SetInteger(State, (int)PlayerAnimatorEnum.TakeDamage);
+        yield return new WaitForSeconds(0.5f);
+        isTakingDamage = false;
+        animator.SetInteger(State, (int)PlayerAnimatorEnum.Idle);
+    }
+
+    private IEnumerator Die()
+    {
+        animator.SetInteger(State, (int)PlayerAnimatorEnum.Death);
+        yield return new WaitForSeconds(0.5f);
+        life = 0;
+        onDie?.Invoke();
     }
 }

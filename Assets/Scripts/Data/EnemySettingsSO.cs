@@ -5,6 +5,7 @@ public class EnemySettingsSO : ScriptableObject
 {
     [SerializeField] private string enemyName;
     [SerializeField] private float speedMovement;
+    [SerializeField] private int damage;
 
     public string EnemyName { get { return enemyName; } }
 
@@ -18,5 +19,12 @@ public class EnemySettingsSO : ScriptableObject
     public void SetSpeedMovement (float speedMovement)
     {
         this.speedMovement = speedMovement;
+    }
+
+    public int Damage { get { return damage; } }
+
+    public void SetDamage(int damage)
+    {
+        this.damage = damage;
     }
 }

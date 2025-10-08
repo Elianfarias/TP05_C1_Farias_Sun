@@ -1,27 +1,35 @@
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Bullet : MonoBehaviour
 {
-    [SerializeField] private int damage = 20;
+    public FireballSO data;
 
-    private Rigidbody2D rigidbody2D;
+    private Rigidbody2D rb;
 
     private void Awake ()
     {
-        rigidbody2D = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
-    public void Set (int speed, int damage)
+    private void Update()
     {
-        rigidbody2D.bodyType = RigidbodyType2D.Dynamic;
-        rigidbody2D.velocity = transform.forward * speed;
+        Vector3 direction = rb.velocity.normalized;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0, 0, angle);
     }
 
-    private void OnTriggerEnter2D (Collider2D other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.TryGetComponent(out HealthSystem healthSystem))
-        {
-            healthSystem.DoDamage(damage);
-        }
+            healthSystem.DoDamage(data.damage);
+
+        gameObject.SetActive(false);
+    }
+
+    public void Shoot(Vector3 direction)
+    {
+        rb.bodyType = RigidbodyType2D.Dynamic;
+        rb.velocity = direction * data.speed;
     }
 }
