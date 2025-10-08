@@ -11,8 +11,6 @@ public class HUDManager : MonoBehaviour
     [SerializeField] private PlayerDataSO playerSettings;
     [Header("PlayerLoseHUD")]
     public GameObject panelPlayerLose;
-    [SerializeField] private TMP_Text scoreText;
-    [SerializeField] private TMP_Text recordText;
     [SerializeField] private Button btnReset;
     [SerializeField] private Button btnBackToMenu;
 
@@ -31,8 +29,6 @@ public class HUDManager : MonoBehaviour
 
     public void ShowPanelPlayerLose()
     {
-        scoreText.text = ScoreManager.Instance.metersTraveled.ToString() + " m";
-        recordText.text = PlayerPrefs.GetInt("PlayerScore").ToString() + " m";
         panelPlayerLose.SetActive(true);
     }
 

@@ -17,7 +17,7 @@ MonoBehaviour:
   keyCodeRight: 100
   keyCodeDash: 304
   bulletPrefab: {fileID: 3954131475818202122, guid: 2de0b17eb19de4e47b90b7875d482c8a, type: 3}
-  speed: 120
+  speed: 150
   jumpForce: 200
   playerName: Player
   volumeMusic: 0
