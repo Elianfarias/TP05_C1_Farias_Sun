@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b38adb2417ba18d44a47a64d561d6ccd, type: 3}
   m_Name: EnemyFlyingEyeSettings
   m_EditorClassIdentifier: 
-  enemyName: Enemy 1
+  enemyName: Flying Eye
   speedMovement: 50
   damage: 20

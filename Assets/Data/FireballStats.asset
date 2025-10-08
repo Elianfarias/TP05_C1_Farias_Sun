@@ -13,6 +13,5 @@ MonoBehaviour:
   m_Name: FireballStats
   m_EditorClassIdentifier: 
   damage: 20
-  speed: 30
+  speed: 20
   baseCooldown: 0.15
-  extraReloadDelay: 2

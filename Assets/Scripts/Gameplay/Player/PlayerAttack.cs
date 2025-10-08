@@ -6,9 +6,10 @@ using UnityEngine.EventSystems;
 public class PlayerAttack : MonoBehaviour
 {
     public event Action<int> onChargerUpdate;
+    public event Action onReload;
 
     [Header("PlayerData")]
-    [SerializeField] private PlayerDataSO data;
+    public PlayerDataSO data;
     [SerializeField] private Transform firePoint;
     [Header("Bullets Pooling")]
     [SerializeField] private Bullet[] bulletsPool;
@@ -43,7 +44,8 @@ public class PlayerAttack : MonoBehaviour
 
         if (shotsSinceExtraDelay >= data.chargerSize)
         {
-            cd += bullet.data.extraReloadDelay;
+            onReload.Invoke();
+            cd += data.extraReloadDelay;
             shotsSinceExtraDelay = 0;
         }
 

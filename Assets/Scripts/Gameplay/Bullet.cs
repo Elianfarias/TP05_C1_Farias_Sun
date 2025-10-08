@@ -30,6 +30,6 @@ public class Bullet : MonoBehaviour
     public void Shoot(Vector3 direction)
     {
         rb.bodyType = RigidbodyType2D.Dynamic;
-        rb.velocity = direction * data.speed;
+        rb.AddForce(direction.normalized * data.speed, ForceMode2D.Impulse);
     }
 }
