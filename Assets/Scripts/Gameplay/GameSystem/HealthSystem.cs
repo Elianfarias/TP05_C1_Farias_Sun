@@ -29,10 +29,8 @@ public class HealthSystem : MonoBehaviour
 
         life -= damage;
 
-        if (life < 0)
-        {
+        if (life <= 0)
             StartCoroutine(nameof(Die));
-        }
         else
         {
             StartCoroutine(nameof(TakeDamage));
@@ -66,7 +64,7 @@ public class HealthSystem : MonoBehaviour
     private IEnumerator Die()
     {
         animator.SetInteger(State, (int)PlayerAnimatorEnum.Death);
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.5f);
         life = 0;
         onDie?.Invoke();
     }
