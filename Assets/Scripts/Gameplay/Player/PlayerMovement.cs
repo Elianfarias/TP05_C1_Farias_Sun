@@ -13,7 +13,9 @@ namespace Assets.Scripts.Gameplay.Player
         [SerializeField] private float dashSpeed = 10f;
         [SerializeField] private float dashDuration = 0.2f;
         [SerializeField] private float dashCooldown = 1f;
-
+        [Header("Sound clips")]
+        [SerializeField] private AudioClip clipJump;
+        [SerializeField] private AudioClip clipWalk;
 
         private Animator animator;
         private Rigidbody2D rb;
@@ -37,7 +39,7 @@ namespace Assets.Scripts.Gameplay.Player
             if (_isDashing)
                 return;
 
-            if (Input.GetKey(data.keyCodeJump))
+            if (Input.GetKey(data.keyCodeJump) || Input.GetKey(KeyCode.Space))
                 Jump();
 
             if (Input.GetKey(data.keyCodeLeft))
@@ -61,6 +63,7 @@ namespace Assets.Scripts.Gameplay.Player
             if (isJumping)
                 return;
 
+            AudioController.Instance.PlaySoundEffect(clipJump, priority: true);
             isJumping = true;
             animator.SetInteger(State, (int)PlayerAnimatorEnum.Jump);
             rb.AddForce(data.jumpForce * Time.fixedDeltaTime * Vector2.up, ForceMode2D.Impulse);
@@ -77,6 +80,7 @@ namespace Assets.Scripts.Gameplay.Player
             if(!isJumping)
                 animator.SetInteger(State, (int)PlayerAnimatorEnum.Run);
 
+            AudioController.Instance.PlaySoundEffect(clipWalk);
             Vector2 movementSpeed = new(data.speed * Time.fixedDeltaTime * axis.x, rb.velocityY);
 
             if (_isDashing)

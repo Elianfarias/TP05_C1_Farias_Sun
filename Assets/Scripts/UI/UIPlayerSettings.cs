@@ -9,9 +9,7 @@ public class UIPlayerSettings : MonoBehaviour
     [SerializeField] private GameObject panelSettings;
 
     [Header("Settings Player")]
-    [SerializeField] private GameObject player;
     [SerializeField] private PlayerDataSO playerSettings;
-    [SerializeField] private TMP_InputField inputName;
 
     [Header("Buttons Setting")]
     [SerializeField] private Button btnSave;
@@ -37,7 +35,6 @@ public class UIPlayerSettings : MonoBehaviour
 
     private void Start()
     {
-        inputName.text = playerSettings.playerName;
         sliderMusic.value = playerSettings.volumeMusic;
         sliderSFX.value = playerSettings.volumeSFX;
 
@@ -65,7 +62,6 @@ public class UIPlayerSettings : MonoBehaviour
 
     private void OnSaveClicked()
     {
-        playerSettings.playerName = inputName.text;
         playerSettings.volumeMusic = sliderMusic.value;
         playerSettings.volumeSFX = sliderSFX.value;
 

@@ -13,6 +13,8 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private Transform firePoint;
     [Header("Bullets Pooling")]
     [SerializeField] private Bullet[] bulletsPool;
+    [Header("Sound clips")]
+    [SerializeField] private AudioClip clipFireball;
 
     private bool canFire = true;
     private int shotsSinceExtraDelay = 0;
@@ -31,11 +33,12 @@ public class PlayerAttack : MonoBehaviour
         Bullet bullet = GetBulletFromPool();
         if (bullet == null) return;
 
+        AudioController.Instance.PlaySoundEffect(clipFireball, priority: true);
         bullet.gameObject.SetActive(true);
-        bullet.transform.SetPositionAndRotation(firePoint.position, Quaternion.identity); 
-        Vector3 targetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition); 
-        Vector3 direction = (targetPos - transform.position).normalized; 
-        
+        bullet.transform.SetPositionAndRotation(firePoint.position, Quaternion.identity);
+        Vector3 targetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 direction = (targetPos - transform.position).normalized;
+
         bullet.Shoot(direction);
 
         // Cooldown

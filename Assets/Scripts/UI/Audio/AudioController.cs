@@ -11,8 +11,11 @@ public class AudioController : MonoBehaviour
         Instance = this;
     }
 
-    public void PlaySoundEffect(AudioClip audioClip)
+    public void PlaySoundEffect(AudioClip audioClip, bool priority = false)
     {
+        if (soundEffectAudioSource.isPlaying && !priority)
+            return;
+
         soundEffectAudioSource.clip = audioClip;
         soundEffectAudioSource.Play();
     }
