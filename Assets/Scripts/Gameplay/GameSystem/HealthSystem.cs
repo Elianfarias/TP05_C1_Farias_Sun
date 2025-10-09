@@ -24,6 +24,9 @@ public class HealthSystem : MonoBehaviour
 
     public void DoDamage(int damage)
     {
+        if (gameObject.layer == LayerMask.NameToLayer("Player") && GameStateManager.Instance.inmortalMode)
+            return;
+
         if (damage < 0 || isTakingDamage)
             return;
 

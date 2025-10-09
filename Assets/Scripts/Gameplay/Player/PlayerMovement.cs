@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using UnityEditor;
+﻿using System.Collections;
 using UnityEngine;
 
 namespace Assets.Scripts.Gameplay.Player
@@ -17,12 +15,10 @@ namespace Assets.Scripts.Gameplay.Player
         [SerializeField] private float dashCooldown = 1f;
 
 
-        private PlayerAnimatorEnum playerAnimatorEnum;
         private Animator animator;
         private Rigidbody2D rb;
         private bool _isDashing = false;
         private float _lastDashTime = -Mathf.Infinity;
-        private Vector2 moveInput = Vector2.zero;
         private bool isJumping = false;
 
         private void Awake()
@@ -31,28 +27,27 @@ namespace Assets.Scripts.Gameplay.Player
             rb = GetComponent<Rigidbody2D>();
         }
 
-        void FixedUpdate()
+        private void FixedUpdate()
         {
             RotateTowardsMouseScreen();
 
+            if (!Input.GetKey(data.keyCodeLeft) && !Input.GetKey(data.keyCodeRight) && !isJumping)
+                StopMovement();
+
             if (_isDashing)
                 return;
-            
+
             if (Input.GetKey(data.keyCodeJump))
                 Jump();
 
             if (Input.GetKey(data.keyCodeLeft))
                 Move(new Vector2(-1, rb.velocityY));
 
-
             if (Input.GetKey(data.keyCodeRight))
                 Move(new Vector2(1, rb.velocityY));
 
             if (Input.GetKey(data.keyCodeDash))
                 TryDash();
-
-            if (!Input.GetKey(data.keyCodeLeft) && !Input.GetKey(data.keyCodeRight) && !isJumping)
-                StopMovement();
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
@@ -79,12 +74,15 @@ namespace Assets.Scripts.Gameplay.Player
 
         private void Move(Vector2 axis)
         {
-            animator.SetInteger(State, (int)PlayerAnimatorEnum.Run);
+            if(!isJumping)
+                animator.SetInteger(State, (int)PlayerAnimatorEnum.Run);
+
+            Vector2 movementSpeed = new(data.speed * Time.fixedDeltaTime * axis.x, rb.velocityY);
 
             if (_isDashing)
                 rb.velocity = axis * dashSpeed;
             else
-                rb.velocity = axis;
+                rb.velocity = movementSpeed;
         }
 
         private void TryDash()

@@ -10,9 +10,11 @@ public enum GameState
 
 public class GameStateManager : MonoBehaviour
 {
+    [SerializeField] private KeyCode keyCodeInmortalMode = KeyCode.M;
     [SerializeField] private AudioClip clipGameOver;
     public static GameStateManager Instance { get; private set; }
     public GameState CurrentGameState { get; private set; } = GameState.PLAYING;
+    public bool inmortalMode;
 
     private void Awake()
     {
@@ -23,6 +25,12 @@ public class GameStateManager : MonoBehaviour
     private void Start()
     {
         SetGameState(CurrentGameState);
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(keyCodeInmortalMode))
+            inmortalMode = !inmortalMode;
     }
 
     public void SetGameState(GameState newState)
@@ -37,12 +45,6 @@ public class GameStateManager : MonoBehaviour
             case GameState.PAUSED:
                 break;
             case GameState.GAME_OVER:
-                var recordMeters = PlayerPrefs.GetInt("PlayerScore");
-                var score = ScoreManager.Instance.metersTraveled;
-
-                if (score > recordMeters)
-                    PlayerPrefs.SetInt("PlayerScore", score);
-
                 AudioController.Instance.StopBackgroundMusic();
                 AudioController.Instance.PlaySoundEffect(clipGameOver);
                 HUDManager.Instance.ShowPanelPlayerLose();
