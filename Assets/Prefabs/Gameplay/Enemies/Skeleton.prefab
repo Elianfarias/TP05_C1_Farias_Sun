@@ -88,7 +88,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 2}
+  m_Size: {x: 0.46, y: 0.52}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -109,7 +109,8 @@ MonoBehaviour:
   soul: {fileID: 0}
   data: {fileID: 11400000, guid: c7d522567866b6c4fa7ff3f4f6ae3f6f, type: 2}
   clipMovement: {fileID: 8300000, guid: 0cab8ac5885f0f845a3b242b8c108d11, type: 3}
-  clipHurt: {fileID: 8300000, guid: 0841eeb475880f74a9de4c44ce3f00bb, type: 3}
+  clipHurt: {fileID: 8300000, guid: dbfe1c0fc3103e94a87894151e5b9013, type: 3}
+  clipDie: {fileID: 8300000, guid: 22cb7deb0acbf8744b309dad15facce9, type: 3}
   soundEffectAudioSource: {fileID: 1521895431477969819}
 --- !u!114 &6157735417552484668
 MonoBehaviour:

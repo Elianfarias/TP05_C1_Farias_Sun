@@ -7,6 +7,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private EnemySettingsSO data;
     [SerializeField] private AudioClip clipMovement;
     [SerializeField] private AudioClip clipHurt;
+    [SerializeField] private AudioClip clipDie;
     [SerializeField] private AudioSource soundEffectAudioSource;
 
     private HealthSystem healthSystem;
@@ -52,7 +53,7 @@ public class EnemyController : MonoBehaviour
 
     private IEnumerator Die()
     {
-
+        PlaySoundEffect(clipDie, priority: true);
         enemyMovement.Die();
 
         yield return new WaitForSeconds(data.TimeStun);

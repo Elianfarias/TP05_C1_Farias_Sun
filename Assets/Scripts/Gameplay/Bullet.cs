@@ -21,7 +21,10 @@ public class Bullet : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.TryGetComponent(out HealthSystem healthSystem))
+        {
+            CombatEvents.RaiseCameraShake(2f, 0.12f, transform.position);
             healthSystem.DoDamage(data.damage);
+        }
 
         gameObject.SetActive(false);
     }

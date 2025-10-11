@@ -108,8 +108,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soul: {fileID: 0}
   data: {fileID: 11400000, guid: c511382ba7b22c2418b6614dd01a15ef, type: 2}
-  clipMovement: {fileID: 8300000, guid: 5d14f8d4a74e00348ad35c48be19674a, type: 3}
+  clipMovement: {fileID: 8300000, guid: f42a37e7f0ce8e14ab0ad46062beb588, type: 3}
   clipHurt: {fileID: 8300000, guid: 5258224bf915eae49b0dcccf737329c2, type: 3}
+  clipDie: {fileID: 8300000, guid: c1f7605054186224c8f1935d8965460b, type: 3}
   soundEffectAudioSource: {fileID: 3759282761595567745}
 --- !u!114 &7170153190748134413
 MonoBehaviour:
