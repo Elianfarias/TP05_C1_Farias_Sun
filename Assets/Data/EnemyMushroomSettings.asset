@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b38adb2417ba18d44a47a64d561d6ccd, type: 3}
   m_Name: EnemyMushroomSettings
   m_EditorClassIdentifier: 
-  enemyName: Mushroom
   speedMovement: 80
   damage: 50
+  timeStun: 1

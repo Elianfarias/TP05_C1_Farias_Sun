@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b38adb2417ba18d44a47a64d561d6ccd, type: 3}
   m_Name: EnemySkeletonSettings
   m_EditorClassIdentifier: 
-  enemyName: Skeleton
   speedMovement: 80
   damage: 40
+  timeStun: 1
+  timeMoveSound: 1

@@ -7,7 +7,8 @@ public class FinishGate : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Player") 
+            && ScoreManager.Instance.soulsCount == ScoreManager.Instance.maxSouls)
         {
             panelPlayerWin.SetActive(true);
             Time.timeScale = 0;

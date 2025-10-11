@@ -3,7 +3,10 @@ using UnityEngine;
 
 public class ScoreManager : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI scoreText;
+    [SerializeField] private TMP_Text txtSoul;
+    public int soulsCount = 0;
+    public int maxSouls = 0;
+
 
     public static ScoreManager Instance;
 
@@ -11,5 +14,16 @@ public class ScoreManager : MonoBehaviour
     {
         if(Instance == null)
             Instance = this;
+    }
+
+    private void Start()
+    {
+        txtSoul.text = soulsCount + "/" + maxSouls;
+    }
+
+    public void AddSoul()
+    {
+        soulsCount++;
+        txtSoul.text = soulsCount + "/" + maxSouls;
     }
 }

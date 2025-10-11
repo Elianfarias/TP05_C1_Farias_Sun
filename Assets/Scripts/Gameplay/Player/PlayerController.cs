@@ -3,6 +3,9 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private HealthSystem healthSystem;
+    [Header("Sound clips")]
+    [SerializeField] private AudioClip clipHurt;
+    [SerializeField] private AudioClip clipDie;
 
     private void Awake()
     {
@@ -17,13 +20,15 @@ public class PlayerController : MonoBehaviour
         healthSystem.onLifeUpdated -= HealthSystem_onLifeUpdated;
     }
 
-    private void HealthSystem_onLifeUpdated(int arg1, int arg2)
+    private void HealthSystem_onLifeUpdated(int life, int maxLife)
     {
-
+        if(life < maxLife)
+            AudioController.Instance.PlaySoundEffect(clipHurt, priority: true);
     }
 
     private void HealthSystem_onDie()
     {
+        AudioController.Instance.PlaySoundEffect(clipDie, priority: true);
         GameStateManager.Instance.SetGameState(GameState.GAME_OVER);
     }
 }

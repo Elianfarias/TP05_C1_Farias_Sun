@@ -46,7 +46,6 @@ public class GameStateManager : MonoBehaviour
                 break;
             case GameState.GAME_OVER:
                 AudioController.Instance.StopBackgroundMusic();
-                AudioController.Instance.PlaySoundEffect(clipGameOver);
                 HUDManager.Instance.ShowPanelPlayerLose();
                 Time.timeScale = 0;
                 break; 

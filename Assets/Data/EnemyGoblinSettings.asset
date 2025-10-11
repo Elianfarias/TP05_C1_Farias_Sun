@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b38adb2417ba18d44a47a64d561d6ccd, type: 3}
   m_Name: EnemyGoblinSettings
   m_EditorClassIdentifier: 
-  enemyName: Goblin
   speedMovement: 50
   damage: 30
+  timeStun: 1
+  timeMoveSound: 3

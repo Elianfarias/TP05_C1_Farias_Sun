@@ -1,18 +1,19 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
     private static readonly int State = Animator.StringToHash("State");
-
+    public event Action onMove;
     [Header("Enemy Settings")]
-    [SerializeField] EnemySettingsSO enemySettings;
+    [SerializeField] EnemySettingsSO data;
     [Header("Patrol Positions")]
     [SerializeField] private GameObject patrolA;
     [SerializeField] private GameObject patrolB;
 
     private bool toPatrolA = true;
-    private bool isAttacking = false;
+    private bool stopMovement = false;
     private bool isDie = false;
     private Rigidbody2D rb;
     private Animator animator;
@@ -25,14 +26,12 @@ public class EnemyMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!isDie)
-        {
-            if (toPatrolA)
-                MoveToPatrol(patrolA);
-            else
-                MoveToPatrol(patrolB);
-        }
+        if (toPatrolA)
+            MoveToPatrol(patrolA);
+        else
+            MoveToPatrol(patrolB);
     }
+
     private void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.gameObject.TryGetComponent(out HealthSystem healthSystem)
@@ -44,31 +43,30 @@ public class EnemyMovement : MonoBehaviour
     public void Die()
     {
         isDie = true;
-        rb.velocity = Vector2.zero;
+        StopMovement();
     }
 
     private IEnumerator Attack(HealthSystem healthSystem)
     {
-        isAttacking = true;
-        healthSystem.DoDamage(enemySettings.Damage);
+        StopMovement();
+        healthSystem.DoDamage(data.Damage);
         animator.SetInteger(State, (int)PlayerAnimatorEnum.Attack);
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(data.TimeStun);
 
-        isAttacking = false;
+        ResumeMovement();
         animator.SetInteger(State, (int)PlayerAnimatorEnum.Idle);
     }
 
     private void MoveToPatrol(GameObject patrol)
     {
-        if (isAttacking)
-        {
-            rb.velocity = Vector2.zero;
+        if (stopMovement)
             return;
-        }
+
+        onMove.Invoke();
 
         Vector2 direction = (patrol.transform.position - transform.position).normalized;
-        rb.velocity = (enemySettings.SpeedMovement) * Time.fixedDeltaTime * direction;
+        rb.velocity = (data.SpeedMovement) * Time.fixedDeltaTime * direction;
         float distance = Vector2.Distance(transform.position, patrol.transform.position);
 
         //Rotation
@@ -80,5 +78,16 @@ public class EnemyMovement : MonoBehaviour
             rb.velocity = Vector2.zero;
             toPatrolA = !toPatrolA;
         }
+    }
+
+    public void StopMovement()
+    {
+        rb.velocity = Vector2.zero;
+        stopMovement = true;
+    }
+
+    public void ResumeMovement()
+    {
+        stopMovement = false;
     }
 }
