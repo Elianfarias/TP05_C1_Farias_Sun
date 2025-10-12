@@ -111,6 +111,7 @@ MonoBehaviour:
   clipMovement: {fileID: 8300000, guid: d3b15792f112f234f8ff35174729b270, type: 3}
   clipHurt: {fileID: 8300000, guid: 4c26bfaa9077a5249a512bb54495af34, type: 3}
   clipDie: {fileID: 8300000, guid: 4b688744f26eae5479f3e929d07afc1d, type: 3}
+  clipAttack: {fileID: 8300000, guid: 61cb617d585110a419ec4c80687f2b77, type: 3}
   soundEffectAudioSource: {fileID: 8330220266811396082}
 --- !u!114 &8291156831444186796
 MonoBehaviour:

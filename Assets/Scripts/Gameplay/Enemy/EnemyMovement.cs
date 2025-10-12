@@ -6,6 +6,7 @@ public class EnemyMovement : MonoBehaviour
 {
     private static readonly int State = Animator.StringToHash("State");
     public event Action onMove;
+    public event Action onAttack;
     [Header("Enemy Settings")]
     [SerializeField] EnemySettingsSO data;
     [Header("Patrol Positions")]
@@ -42,6 +43,7 @@ public class EnemyMovement : MonoBehaviour
 
     public void Die()
     {
+        rb.bodyType = RigidbodyType2D.Kinematic;
         isDie = true;
         StopMovement();
     }
@@ -49,6 +51,7 @@ public class EnemyMovement : MonoBehaviour
     private IEnumerator Attack(HealthSystem healthSystem)
     {
         StopMovement();
+        onAttack.Invoke();
         healthSystem.DoDamage(data.Damage);
         animator.SetInteger(State, (int)PlayerAnimatorEnum.Attack);
 

@@ -8,6 +8,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private AudioClip clipMovement;
     [SerializeField] private AudioClip clipHurt;
     [SerializeField] private AudioClip clipDie;
+    [SerializeField] private AudioClip clipAttack;
     [SerializeField] private AudioSource soundEffectAudioSource;
 
     private HealthSystem healthSystem;
@@ -19,6 +20,7 @@ public class EnemyController : MonoBehaviour
         healthSystem = GetComponent<HealthSystem>();
         enemyMovement = GetComponent<EnemyMovement>();
         enemyMovement.onMove += EnemyMovement_onMove;
+        enemyMovement.onAttack += EnemyMovement_onAttack;
         healthSystem.onDie += HealthSystem_onDie;
         healthSystem.onLifeUpdated += HealthSystem_onLifeUpdated;
 
@@ -28,6 +30,7 @@ public class EnemyController : MonoBehaviour
     private void OnDestroy()
     {
         enemyMovement.onMove -= EnemyMovement_onMove;
+        enemyMovement.onAttack -= EnemyMovement_onAttack;
         healthSystem.onDie -= HealthSystem_onDie;
         healthSystem.onLifeUpdated -= HealthSystem_onLifeUpdated;
     }
@@ -38,6 +41,15 @@ public class EnemyController : MonoBehaviour
         {
             nextTimeToReproduce = Time.time + data.TimeMoveSound;
             PlaySoundEffect(clipMovement);
+        }
+    }
+
+    private void EnemyMovement_onAttack()
+    {
+        if (nextTimeToReproduce < Time.time)
+        {
+            nextTimeToReproduce = Time.time + data.TimeStun;
+            PlaySoundEffect(clipAttack, priority: true, ignorePlaying: true);
         }
     }
 
@@ -58,7 +70,7 @@ public class EnemyController : MonoBehaviour
 
         yield return new WaitForSeconds(data.TimeStun);
 
-        soul.transform.position = transform.position;
+        soul.transform.position = transform.position + (Vector3.up * 0.5f);
         soul.SetActive(true);
         gameObject.SetActive(false);
     }
@@ -76,9 +88,9 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    private void PlaySoundEffect(AudioClip audioClip, bool priority = false)
+    private void PlaySoundEffect(AudioClip audioClip, bool priority = false, bool ignorePlaying = false)
     {
-        if (soundEffectAudioSource.isPlaying && !priority)
+        if ((soundEffectAudioSource.isPlaying && !ignorePlaying) && !priority)
             return;
 
         soundEffectAudioSource.clip = audioClip;
