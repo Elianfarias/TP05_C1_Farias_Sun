@@ -23,4 +23,5 @@ MonoBehaviour:
   volumeMusic: 0
   volumeSFX: 0
   chargerSize: 4
+  dashSpeed: 2
   extraReloadDelay: 2

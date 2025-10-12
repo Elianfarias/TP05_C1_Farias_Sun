@@ -32,7 +32,7 @@ public class PlayerAttack : MonoBehaviour
         Bullet bullet = GetBulletFromPool();
         if (bullet == null) return;
 
-        AudioController.Instance.PlaySoundEffect(clipFireball, priority: true);
+        AudioController.Instance.PlaySoundEffect(clipFireball, priority: 2);
         bullet.gameObject.SetActive(true);
         bullet.transform.SetPositionAndRotation(firePoint.position, Quaternion.identity);
         Vector3 targetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);

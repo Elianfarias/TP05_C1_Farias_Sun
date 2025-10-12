@@ -3655,10 +3655,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bullet
       objectReference: {fileID: 0}
-    - target: {fileID: 116968120347655746, guid: 2de0b17eb19de4e47b90b7875d482c8a, type: 3}
-      propertyPath: m_Layer
-      value: 11
-      objectReference: {fileID: 0}
     - target: {fileID: 455568557781321841, guid: 2de0b17eb19de4e47b90b7875d482c8a, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.33
@@ -3801,10 +3797,6 @@ PrefabInstance:
     - target: {fileID: 3230611351901401697, guid: f58f48a19004dea41893e391771c178c, type: 3}
       propertyPath: m_Name
       value: Soul
-      objectReference: {fileID: 0}
-    - target: {fileID: 3230611351901401697, guid: f58f48a19004dea41893e391771c178c, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9163801677754273065, guid: f58f48a19004dea41893e391771c178c, type: 3}
       propertyPath: m_LocalPosition.x

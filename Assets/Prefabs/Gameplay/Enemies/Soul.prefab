@@ -101,6 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 286ed468ab821cb428a3af35983d0e17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  clipTakeSoul: {fileID: 8300000, guid: f4de6445555079b42b0ba17f9db61b91, type: 3}
 --- !u!70 &3058456007723992098
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

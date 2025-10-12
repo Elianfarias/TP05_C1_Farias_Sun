@@ -25,13 +25,13 @@ public class PlayerController : MonoBehaviour
         if(life < maxLife)
         {
             CombatEvents.RaiseCameraShake(2f, 0.12f, transform.position);
-            AudioController.Instance.PlaySoundEffect(clipHurt, priority: true);
+            AudioController.Instance.PlaySoundEffect(clipHurt, priority: 2);
         }
     }
 
     private void HealthSystem_onDie()
     {
-        AudioController.Instance.PlaySoundEffect(clipDie, priority: true);
+        AudioController.Instance.PlaySoundEffect(clipDie, priority: 3);
         GameStateManager.Instance.SetGameState(GameState.GAME_OVER);
     }
 }

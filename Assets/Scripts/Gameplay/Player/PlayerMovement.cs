@@ -10,7 +10,6 @@ namespace Assets.Scripts.Gameplay.Player
         [Header("Player Settings")]
         [SerializeField] private PlayerDataSO data;
         [Header("Dash Settings")]
-        [SerializeField] private float dashSpeed = 10f;
         [SerializeField] private float dashDuration = 0.2f;
         [SerializeField] private float dashCooldown = 1f;
         [Header("Sound clips")]
@@ -63,7 +62,7 @@ namespace Assets.Scripts.Gameplay.Player
             if (isJumping)
                 return;
 
-            AudioController.Instance.PlaySoundEffect(clipJump, priority: true);
+            AudioController.Instance.PlaySoundEffect(clipJump, priority: 1);
             isJumping = true;
             animator.SetInteger(State, (int)PlayerAnimatorEnum.Jump);
             rb.AddForce(data.jumpForce * Time.fixedDeltaTime * Vector2.up, ForceMode2D.Impulse);
@@ -84,7 +83,7 @@ namespace Assets.Scripts.Gameplay.Player
             Vector2 movementSpeed = new(data.speed * Time.fixedDeltaTime * axis.x, rb.velocityY);
 
             if (_isDashing)
-                rb.velocity = axis * dashSpeed;
+                rb.velocity = axis * data.dashSpeed;
             else
                 rb.velocity = movementSpeed;
         }
@@ -107,7 +106,7 @@ namespace Assets.Scripts.Gameplay.Player
             _lastDashTime = Time.time;
 
             Vector2 dashDir = velocity;
-            dashDir.x = dashDir.x * dashSpeed;
+            dashDir.x = dashDir.x * data.dashSpeed;
             rb.velocity = dashDir;
 
             yield return new WaitForSeconds(dashDuration);
