@@ -4,6 +4,7 @@ using UnityEngine;
 public class PlayerDataSO : ScriptableObject
 {
     public KeyCode keyCodeJump = KeyCode.Space;
+    public KeyCode keyCodeDown = KeyCode.S;
     public KeyCode keyCodeLeft = KeyCode.A;
     public KeyCode keyCodeRight = KeyCode.D;
     public KeyCode keyCodeDash = KeyCode.LeftShift;

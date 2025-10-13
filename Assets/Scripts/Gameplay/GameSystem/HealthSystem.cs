@@ -68,10 +68,11 @@ public class HealthSystem : MonoBehaviour
 
     private IEnumerator Die()
     {
-        animator.SetInteger(State, (int)PlayerAnimatorEnum.Death);
+        animator.SetInteger(State, (int)PlayerAnimatorEnum.TakeDamage);
 
         yield return new WaitForSeconds(0.5f);
         
+        animator.SetInteger(State, (int)PlayerAnimatorEnum.Death);
         life = 0;
         onDie?.Invoke();
     }

@@ -15,6 +15,8 @@ namespace Assets.Scripts.Gameplay.Player
         [Header("Sound clips")]
         [SerializeField] private AudioClip clipJump;
         [SerializeField] private AudioClip clipWalk;
+        [Header("Particles")]
+        [SerializeField] private ParticleSystem dashParticles;
 
         private Animator animator;
         private Rigidbody2D rb;
@@ -41,11 +43,14 @@ namespace Assets.Scripts.Gameplay.Player
             if (Input.GetKey(data.keyCodeJump) || Input.GetKey(KeyCode.Space))
                 Jump();
 
+            if (Input.GetKey(data.keyCodeDown))
+                MoveY(new Vector2(rb.velocityX, -1));
+
             if (Input.GetKey(data.keyCodeLeft))
-                Move(new Vector2(-1, rb.velocityY));
+                MoveX(new Vector2(-1, rb.velocityY));
 
             if (Input.GetKey(data.keyCodeRight))
-                Move(new Vector2(1, rb.velocityY));
+                MoveX(new Vector2(1, rb.velocityY));
 
             if (Input.GetKey(data.keyCodeDash))
                 TryDash();
@@ -74,13 +79,23 @@ namespace Assets.Scripts.Gameplay.Player
             rb.velocity = new Vector2(0, rb.velocityY);
         }
 
-        private void Move(Vector2 axis)
+        private void MoveX(Vector2 axis)
         {
             if(!isJumping)
                 animator.SetInteger(State, (int)PlayerAnimatorEnum.Run);
 
             AudioController.Instance.PlaySoundEffect(clipWalk);
             Vector2 movementSpeed = new(data.speed * Time.fixedDeltaTime * axis.x, rb.velocityY);
+
+            if (_isDashing)
+                rb.velocity = axis * data.dashSpeed;
+            else
+                rb.velocity = movementSpeed;
+        }
+
+        private void MoveY(Vector2 axis)
+        {
+            Vector2 movementSpeed = new(rb.velocityX, data.speed * Time.fixedDeltaTime * axis.y);
 
             if (_isDashing)
                 rb.velocity = axis * data.dashSpeed;
@@ -105,6 +120,7 @@ namespace Assets.Scripts.Gameplay.Player
             _isDashing = true;
             _lastDashTime = Time.time;
 
+            dashParticles.Play();
             Vector2 dashDir = velocity;
             dashDir.x = dashDir.x * data.dashSpeed;
             rb.velocity = dashDir;

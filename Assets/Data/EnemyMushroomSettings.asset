@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: EnemyMushroomSettings
   m_EditorClassIdentifier: 
   speedMovement: 80
-  damage: 50
+  damage: 30
   timeStun: 1
+  timeMoveSound: 0

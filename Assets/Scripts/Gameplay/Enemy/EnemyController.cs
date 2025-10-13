@@ -10,6 +10,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private AudioClip clipDie;
     [SerializeField] private AudioClip clipAttack;
     [SerializeField] private AudioSource soundEffectAudioSource;
+    [SerializeField] private ParticleSystem enemyParticles;
 
     private HealthSystem healthSystem;
     private EnemyMovement enemyMovement;
@@ -66,6 +67,7 @@ public class EnemyController : MonoBehaviour
     private IEnumerator Die()
     {
         PlaySoundEffect(clipDie, priority: true);
+        enemyParticles.Play();
         enemyMovement.Die();
 
         yield return new WaitForSeconds(data.TimeStun);
@@ -80,6 +82,7 @@ public class EnemyController : MonoBehaviour
         if (life < maxLife)
         {
             PlaySoundEffect(clipHurt, priority: true);
+            enemyParticles.Play();
             enemyMovement.StopMovement();
 
             yield return new WaitForSeconds(data.TimeStun);
