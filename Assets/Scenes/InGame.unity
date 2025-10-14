@@ -2810,7 +2810,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4170135855435379363, guid: 073f3548705212649af27322e6894dc2, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4398987843866796815, guid: 073f3548705212649af27322e6894dc2, type: 3}
       propertyPath: m_SizeDelta.y
@@ -2890,7 +2890,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7148712416492735359, guid: 073f3548705212649af27322e6894dc2, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7256971546911004296, guid: 073f3548705212649af27322e6894dc2, type: 3}
       propertyPath: btnWinReset
