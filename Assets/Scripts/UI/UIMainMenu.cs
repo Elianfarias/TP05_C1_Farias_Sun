@@ -101,11 +101,7 @@ public class UIMainMenu : MonoBehaviour
 
     private void OnExitClicked()
     {
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-#else
-        Application.Quit();
-#endif
+        SceneManager.LoadScene("MainMenu");
     }
 
     private void OnBackCredits()
