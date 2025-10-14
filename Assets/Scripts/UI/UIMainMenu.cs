@@ -101,6 +101,7 @@ public class UIMainMenu : MonoBehaviour
 
     private void OnExitClicked()
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene("MainMenu");
     }
 
