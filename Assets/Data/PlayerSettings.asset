@@ -24,5 +24,7 @@ MonoBehaviour:
   volumeMusic: 0
   volumeSFX: 0
   chargerSize: 4
-  dashSpeed: 2
+  dashSpeed: 9
+  inmortalDuration: 0.8
+  dashDuration: 2
   extraReloadDelay: 2

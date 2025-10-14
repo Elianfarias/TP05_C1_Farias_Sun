@@ -1,16 +1,17 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 namespace Assets.Scripts.Gameplay.Player
 {
     public class PlayerMovement : MonoBehaviour
     {
+        public event Action<float> onDashCD;
         private static readonly int State = Animator.StringToHash("State");
 
         [Header("Player Settings")]
         [SerializeField] private PlayerDataSO data;
         [Header("Dash Settings")]
-        [SerializeField] private float dashDuration = 0.2f;
         [SerializeField] private float dashCooldown = 1f;
         [Header("Sound clips")]
         [SerializeField] private AudioClip clipJump;
@@ -18,6 +19,7 @@ namespace Assets.Scripts.Gameplay.Player
         [Header("Particles")]
         [SerializeField] private ParticleSystem dashParticles;
 
+        private HealthSystem healthSystem;
         private Animator animator;
         private Rigidbody2D rb;
         private bool _isDashing = false;
@@ -26,6 +28,7 @@ namespace Assets.Scripts.Gameplay.Player
 
         private void Awake()
         {
+            healthSystem = GetComponent<HealthSystem>();
             animator = GetComponent<Animator>();
             rb = GetComponent<Rigidbody2D>();
         }
@@ -36,9 +39,6 @@ namespace Assets.Scripts.Gameplay.Player
 
             if (!Input.GetKey(data.keyCodeLeft) && !Input.GetKey(data.keyCodeRight) && !isJumping)
                 StopMovement();
-
-            if (_isDashing)
-                return;
 
             if (Input.GetKey(data.keyCodeJump) || Input.GetKey(KeyCode.Space))
                 Jump();
@@ -81,26 +81,20 @@ namespace Assets.Scripts.Gameplay.Player
 
         private void MoveX(Vector2 axis)
         {
-            if(!isJumping)
+            if (!isJumping)
                 animator.SetInteger(State, (int)PlayerAnimatorEnum.Run);
 
             AudioController.Instance.PlaySoundEffect(clipWalk);
             Vector2 movementSpeed = new(data.speed * Time.fixedDeltaTime * axis.x, rb.velocityY);
 
-            if (_isDashing)
-                rb.velocity = axis * data.dashSpeed;
-            else
-                rb.velocity = movementSpeed;
+            rb.velocity = movementSpeed;
         }
 
         private void MoveY(Vector2 axis)
         {
             Vector2 movementSpeed = new(rb.velocityX, data.speed * Time.fixedDeltaTime * axis.y);
 
-            if (_isDashing)
-                rb.velocity = axis * data.dashSpeed;
-            else
-                rb.velocity = movementSpeed;
+            rb.velocity = movementSpeed;
         }
 
         private void TryDash()
@@ -120,15 +114,19 @@ namespace Assets.Scripts.Gameplay.Player
             _isDashing = true;
             _lastDashTime = Time.time;
 
+            onDashCD.Invoke(data.dashDuration);
             dashParticles.Play();
-            Vector2 dashDir = velocity;
-            dashDir.x = dashDir.x * data.dashSpeed;
-            rb.velocity = dashDir;
+            GameStateManager.Instance.inmortalMode = true;
 
-            yield return new WaitForSeconds(dashDuration);
+            rb.AddForceX(velocity.x * data.dashSpeed, ForceMode2D.Impulse);
+
+            yield return new WaitForSeconds(data.inmortalDuration);
+
+            GameStateManager.Instance.inmortalMode = false;
+
+            yield return new WaitForSeconds(data.dashDuration - data.inmortalDuration);
 
             _isDashing = false;
-            rb.velocity = Vector2.zero;
         }
 
         private void RotateTowardsMouseScreen()

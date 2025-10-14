@@ -1,10 +1,14 @@
 fileFormatVersion: 2
-guid: aedef1ccd8bff294fa16a3e13c784428
+guid: eed44235dcbd621438f7c0c4f05e2356
+AssetOrigin:
+  serializedVersion: 1
+  productId: 210622
+  packageName: 2D SKILLS ICON SET - HAND-PAINTED GUI PACK
+  packageVersion: 1.0
+  assetPath: Assets/Homeless/UI Assets/Ability_Skill_Icons/UI_Skill_Icon_Blackhole.png
+  uploadId: 473697
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: 3790343190062119669
-    second: Spooky Time_0
+  internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -42,11 +46,11 @@ TextureImporter:
     mipBias: 0
     wrapU: 1
     wrapV: 1
-    wrapW: 1
+    wrapW: 0
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -68,7 +72,7 @@ TextureImporter:
   ignorePngGamma: 0
   applyGammaDecoding: 0
   swizzle: 50462976
-  cookieLightType: 0
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -137,32 +141,11 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: Spooky Time_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 2268
-        height: 1513
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 5fa397c9c010a9430800000000000000
-      internalID: 3790343190062119669
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
+    sprites: []
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 

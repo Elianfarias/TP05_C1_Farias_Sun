@@ -15,6 +15,8 @@ public class PlayerDataSO : ScriptableObject
     public float volumeMusic;
     public float volumeSFX;
     public int chargerSize = 4;
-    public float dashSpeed = 5f;
+    public float dashSpeed = 7f;
+    public float inmortalDuration = 0.8f;
+    public float dashDuration = 2f;
     public float extraReloadDelay = 2f;
 }
