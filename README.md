@@ -1,1 +1,1 @@
-https://elianity.itch.io/sun-hiding
+https://elianity.itch.io/side-scroller-sun-hiding
